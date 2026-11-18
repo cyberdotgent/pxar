@@ -1,3 +1,9 @@
+rust-pxar (1.0.1-1+s390x1) trixie; urgency=medium
+
+  * s390x port: fix reading archives on big-endian hosts.
+
+ -- Yvan Janssens <yvanj@cyber.gent>  Wed, 18 Nov 2026 11:05:36 +0100
+
 rust-pxar (1.0.1-1) trixie; urgency=medium
 
   * various clippy fixes
