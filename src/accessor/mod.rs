@@ -487,7 +487,7 @@ impl<T: Clone + ReadAt> DirectoryImpl<T> {
             );
             read_exact_at(self.input.archive(), slice, self.table_offset()).await?;
         }
-        Ok(Arc::from(data))
+        Ok(data.into_iter().map(GoodbyeItem::from_le).collect())
     }
 
     #[inline]
