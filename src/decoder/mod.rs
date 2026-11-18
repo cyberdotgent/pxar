@@ -7,7 +7,7 @@
 use std::ffi::OsString;
 use std::future::poll_fn;
 use std::io;
-use std::mem::{self, MaybeUninit, size_of, size_of_val};
+use std::mem::{self, MaybeUninit, size_of};
 use std::ops::Range;
 use std::os::unix::ffi::{OsStrExt, OsStringExt};
 use std::path::{Path, PathBuf};
@@ -551,15 +551,9 @@ impl<I: SeqRead> DecoderImpl<I> {
     }
 
     async fn read_next_header_or_eof(&mut self) -> io::Result<Option<()>> {
-        let dest = unsafe {
-            std::slice::from_raw_parts_mut(
-                &mut self.current_header as *mut Header as *mut u8,
-                size_of_val(&self.current_header),
-            )
-        };
-
-        match seq_read_exact_or_eof(self.input.archive_mut(), dest).await? {
-            Some(()) => {
+        match seq_read_entry_or_eof(self.input.archive_mut()).await? {
+            Some(header) => {
+                self.current_header = header;
                 self.current_header.check_header_size()?;
                 Ok(Some(()))
             }
