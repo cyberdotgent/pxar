@@ -1,3 +1,9 @@
+rust-pxar (1.0.1-1+s390x2) trixie; urgency=medium
+
+  * Rebuild with cleaned changelog and test data.
+
+ -- Yvan Janssens <yvanj@cyber.gent>  Fri, 20 Nov 2026 12:55:25 +0100
+
 rust-pxar (1.0.1-1+s390x1) trixie; urgency=medium
 
   * s390x port: fix reading archives on big-endian hosts.
